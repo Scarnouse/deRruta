@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>deRruta | Iniciar Sesión</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="{{ asset('assets/AdminLTE-2.3.11/bootstrap/css/bootstrap.min.css') }}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ asset('assets/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="{{ asset('assets/ionicons-master/css/ionicons.min.css') }}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset('assets/AdminLTE-2.3.11/dist/css/AdminLTE.css') }}">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="{{ asset('assets/AdminLTE-2.3.11/plugins/iCheck/minimal/blue.css') }}">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head><body class="hold-transition login-page">
+<div class="login-box">
+    <div class="login-logo">
+        <b>deRruta</b>
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+        <p class="login-box-msg">Registrar un nuevo usuario</p>
+        <form method="post" action="{{ path('create_user', {'role': role }) }}">
+
+            {{ form_start(formBasic) }}
+            {{ form_errors(formBasic) }}
+            <div class="form-group has-feedback">
+                {{ form_label(formBasic.firstName) }}
+                {{ form_widget(formBasic.firstName) }}
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                {{ form_label(formBasic.lastName) }}
+                {{ form_widget(formBasic.lastName) }}
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                {{ form_label(formBasic.username) }}
+                {{ form_widget(formBasic.username) }}
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                {{ form_label(formBasic.password) }}
+                {{ form_widget(formBasic.password) }}
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="row">
+                <!-- /.col -->
+                <div class="col-xs-4">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat" name="save">Registrar</button>
+                </div>
+                <!-- /.col -->
+            </div>
+            {{ form_end(formBasic )}}
+
+            <!-- /.col -->
+
+            {% for flash_message in app.session.flashBag.get('notice') %}
+                <div class="alert alert-primary alert-styled-left">
+                    <span class="text-semibold">{{ flash_message }}</span>
+                </div>
+            {% endfor %}
+        </form>
+    </div>
+    <!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->
+<!-- jQuery 2.1.4 -->
+<script src="{{ asset('assets/AdminLTE-2.3.11/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
+<!-- Bootstrap 3.3.5 -->
+<script src="{{ asset('assets/AdminLTE-2.3.11/bootstrap/js/bootstrap.min.js') }}"></script>
+</body>
+</html>

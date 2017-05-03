@@ -1,0 +1,19 @@
+services:
+    druta.model.user_model:
+        class: DrutaBundle\Model\UserModel
+        arguments: ['@doctrine.orm.entity_manager']
+
+    druta.model.file_uploader:
+        class: DrutaBundle\Model\FileUploader
+        arguments: ['%uploads_directory%', '@service_container', '@request_stack']
+
+    druta.model.route_model:
+        class: DrutaBundle\Model\RouteModel
+        arguments: ['@doctrine.orm.entity_manager']
+
+    druta.service.doctrine_help:
+        class: DrutaBundle\Util\DoctrineHelp
+
+    druta.model.poi_model:
+        class: DrutaBundle\Model\POIModel
+        arguments: ['@doctrine.orm.entity_manager']

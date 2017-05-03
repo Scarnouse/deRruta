@@ -1,0 +1,14 @@
+fcore:
+    resource: "@DrutaBundle/Controller"
+    type:     annotation
+    prefix:   /
+
+login:
+    pattern: /
+    defaults: { _controller: DrutaBundle:Auth:login }
+
+login_check:
+    pattern: /login_check
+
+logout:
+    pattern: /logout

@@ -1,0 +1,98 @@
+{% extends 'DrutaBundle:Default:dashboard.html.twig' %}
+
+{% block content %}
+
+    <section class="content">
+
+        <div class="row">
+            <div class="col-md-12">
+                {% if ok_msg is defined %}
+
+                    <div class="alert alert-success alert-styled-left alert-bordered alert-arrow-left">
+                        <span class="text-semibold"></span> {{ ok_msg }}
+                    </div>
+
+
+                {% elseif error_msg is defined %}
+
+                    <div class="alert alert-danger alert-styled-left alert-bordered">
+                        <span class="text-semibold"></span> {{ ok_msg }}
+                    </div>
+
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+
+                <!-- Profile Image -->
+                <div class="box box-primary">
+                    <div class="box-body box-profile">
+                        <img class="profile-user-img img-responsive img-circle" src="{{ user.getWebPathImage() }}" alt="User profile picture">
+
+                        <h3 class="profile-username text-center">{{ user.getFirstName() }}</h3>
+
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item">
+                                <b>Miembro desde </b> <a class="pull-right">{{ user.getDateMember() | date('d/m/Y')}}</a>
+                            </li>
+                        </ul>
+
+                        <a href="{{ path('logout') }}" class="btn btn-primary btn-block"><b>Cerrar sesión</b></a>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-9">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#settings" data-toggle="tab">Configuración</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <form class="form-horizontal" method="POST" action="{{ path('save_user_profile') }}" name="profile" enctype="multipart/form-data">
+                            <div class="active tab-pane" id="settings">
+                                {{ form_start(formBasic) }}
+                                {{ form_errors(formBasic) }}
+                                <div class="form-group">
+                                    <label for="inputFirstName" class="col-sm-2 control-label">{{ form_label(formBasic.firstName) }}</label>
+                                    <div class="col-sm-10">
+                                        {{ form_widget(formBasic.firstName) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputLastName" class="col-sm-2 control-label">{{ form_label(formBasic.lastName) }}</label>
+                                    <div class="col-sm-10">
+                                        {{ form_widget(formBasic.lastName) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputFile" class="col-sm-2 control-label">{{ form_label(formBasic.fileImage) }}</label>
+                                    {{ form_widget(formBasic.fileImage) }}
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-danger" name="save">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_end(formBasic) }}
+                        </form>
+
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+                <!-- /.nav-tabs-custom -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+    </section>
+{% endblock %}

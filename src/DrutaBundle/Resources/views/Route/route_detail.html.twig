@@ -1,0 +1,92 @@
+{% extends 'DrutaBundle:Default:dashboard.html.twig' %}
+
+{% block content %}
+
+    {% if pois | length > 0 %}
+        <div class="row">
+            <div class = "col-md-9">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                        <!-- /.box-tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body ">
+                        <div id="map" style="height: 400px; width: 100%">
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                {% for poi in pois %}
+                    <!-- small box -->
+                    <div class="small-box bg-aqua">
+                        <div class="inner">
+                            <h3>{{ poi.getName() }}</h3>
+
+                            <p>{{ poi.getDescription() }}</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-bandcamp"></i>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <h1>No es posible mostrar POIS asociados a la ruta</h1>
+    {% endif %}
+
+    {% block javascript %}
+        <script>
+            var locations = [];
+            {% for poi in pois  %}
+                var latitude = '{{ poi.getLatitude() }}';
+                var longitude = '{{ poi.getLongitude() }}';
+                locations.push({lat: Number(latitude), lng: Number(longitude)});
+            {% endfor %}
+
+            function initMap() {
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 7,
+                    center: locations[0]
+                });
+                var icon = {
+                    url: "{{ asset('uploads/place-map-marker-default.png')}}",
+                    scaledSize: new google.maps.Size(24, 35),
+                    origin: new google.maps.Point(0,0),
+                    anchor: new google.maps.Point(0, 0)
+                };
+                var markers = locations.map(function (location) {
+                    return new google.maps.Marker({
+                        position: location,
+                        icon: icon
+                    })
+                });
+                var markerCluster = new MarkerClusterer(map, markers,
+                    {imagePath: "{{ asset('uploads/place-map-marker-default.png')}}"});
+
+            }
+        </script>
+        <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"/>
+        <script>
+            $("[data-widget='collapse']").click(function() {
+                //Find the box parent
+                var box = $(this).parents(".box").first();
+                //Find the body and the footer
+                var bf = box.find(".box-body, .box-footer");
+                if (!box.hasClass("collapsed-box")) {
+                    box.addClass("collapsed-box");
+                    bf.slideUp();
+                } else {
+                    box.removeClass("collapsed-box");
+                    bf.slideDown();
+                }
+            });
+        </script>
+    {% endblock %}
+
+{% endblock %}

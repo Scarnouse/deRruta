@@ -1,0 +1,457 @@
+<div class="row">
+                <div class="col-md-12">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-aqua">
+                        <div class="inner">
+                            <h3>$ 0,00</h3>
+
+                            <p>Presupuesto mensual</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-dollar"></i>
+                        </div>
+                        <a href="#" class="small-box-footer" data-toggle="modal" data-target="#presupuesto-mensual-modal">Más información <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-green">
+                        <div class="inner">
+                            <h3>$ 0,00</h3>
+
+                            <p>Gastos mensuales fijos</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-pie-chart"></i>
+                        </div>
+                        <a href="#" class="small-box-footer" data-toggle="modal" data-target="#gasto-mensual-modal">Más información <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-yellow">
+                        <div class="inner">
+                            <h3>$ 0,00</h3>
+
+                            <p>Saldo actual</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-money"></i>
+                        </div>
+                        <a href="#" class="small-box-footer" data-toggle="modal" data-target="#saldo-actual-modal">Más información <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-red">
+                        <div class="inner">
+                            <h3>$ 0,00</h3>
+
+                            <p>Ingresos extraordinarios</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-suitcase"></i>
+                        </div>
+                        <a href="#" class="small-box-footer" data-toggle="modal" data-target="#ingresos-extraordinarios-modal">Más información <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+            </div>
+
+            <div class="row">
+                <section class="col-lg-6 connectedSortable ui-sortable">
+                    <!-- Custom tabs (Charts with tabs)-->
+                    <div class="nav-tabs-custom" style="cursor: move;">
+                        <!-- Tabs within a box -->
+                        <ul class="nav nav-tabs pull-right ui-sortable-handle">
+                            <li class="active"><a href="#gastos-variables" data-toggle="tab">Gastos variables</a></li>
+                            <li><a href="#gastos-fijos" data-toggle="tab">Gastos fijos</a></li>
+                            <li><a href="#gastos-totales" data-toggle="tab">Gastos totales</a></li>
+                            <li><a href="#Ingresos" data-toggle="tab">Ingresos</a></li>
+                            <li class="pull-left header"><i class="fa fa-pie-chart"></i> Graficas</li>
+                        </ul>
+                        <div class="tab-content no-padding">
+                            <!-- Morris chart - Sales -->
+                            <div class="chart tab-pane active" id="gastos-variables" style="position: relative; height: 400px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                                <div id="chart-gastos-mensuales"></div>
+                                <script type="text/javascript">
+                                    Highcharts.chart('chart-gastos-mensuales', {
+                                        chart: {
+                                            type: 'pie',
+                                            options3d: {
+                                                enabled: true,
+                                                alpha: 45
+                                            }
+                                        },
+                                        title: {
+                                            text: ''
+                                        },
+                                        subtitle: {
+                                            text: 'total de gastos variables: <strong>$0,00</strong>'
+                                        },
+                                        plotOptions: {
+                                            pie: {
+                                                innerSize: 100,
+                                                depth: 45
+                                            }
+                                        },
+                                        series: [{
+                                            name: '$',
+                                            data: [
+                                            ]
+                                        }]
+                                    });
+                                </script>
+                            </div>
+                            <div class="chart tab-pane" id="gastos-fijos" style="position: relative; height: 400px;">
+                                <div id="chart-gastos-fijos"></div>
+                                <script type="text/javascript">
+                                    Highcharts.chart('chart-gastos-fijos', {
+                                        chart: {
+                                            type: 'pie',
+                                            options3d: {
+                                                enabled: true,
+                                                alpha: 45
+                                            }
+                                        },
+                                        title: {
+                                            text: ''
+                                        },
+                                        subtitle: {
+                                            text: 'total de gastos fijos: <strong>$0,00</strong>'
+                                        },
+                                        plotOptions: {
+                                            pie: {
+                                                innerSize: 100,
+                                                depth: 45
+                                            }
+                                        },
+                                        series: [{
+                                            name: '$',
+                                            data: [
+                                            ]
+                                        }]
+                                    });
+                                </script>
+                            </div>
+                            <div class="chart tab-pane" id="Ingresos" style="position: relative; height: 400px;">
+                                <div id="chart-ingresos"></div>
+                                <script type="text/javascript">
+                                    Highcharts.chart('chart-ingresos', {
+                                        chart: {
+                                            type: 'pie',
+                                            options3d: {
+                                                enabled: true,
+                                                alpha: 45
+                                            }
+                                        },
+                                        title: {
+                                            text: ''
+                                        },
+                                        subtitle: {
+                                            text: 'total de ingresos: <strong>$0,00</strong>'
+                                        },
+                                        plotOptions: {
+                                            pie: {
+                                                innerSize: 100,
+                                                depth: 45
+                                            }
+                                        },
+                                        series: [{
+                                            name: '$',
+                                            data: [
+                                            ]
+                                        }]
+                                    });
+                                </script>
+                            </div>
+                            <div class="chart tab-pane" id="gastos-totales" style="position: relative; height: 400px;">
+                                <div id="chart-totales"></div>
+                                <script type="text/javascript">
+                                    Highcharts.chart('chart-totales', {
+                                        chart: {
+                                            type: 'pie',
+                                            options3d: {
+                                                enabled: true,
+                                                alpha: 45
+                                            }
+                                        },
+                                        title: {
+                                            text: ''
+                                        },
+                                        subtitle: {
+                                            text: 'total de gastos: <strong>$0,00</strong>'
+                                        },
+                                        plotOptions: {
+                                            pie: {
+                                                innerSize: 100,
+                                                depth: 45
+                                            }
+                                        },
+                                        series: [{
+                                            name: '$',
+                                            data: [
+                                            ]
+                                        }]
+                                    });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Opciones</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab_1">
+                                <b>Mi bandeja de entrada:</b>
+                                <p>El resumen de su bandeja de entrada calcula todas sus incidencias del mes, incluso las que ha registrado en fechas futuras al dia de hoy: <i class="fa fa-calendar"></i> 27/04/2017</p>
+                                <a href="/admin/finanzas/dashboard?today=true" class="btn btn-primary">Ver resumen hasta el dia de hoy</a>
+                            </div>
+                        </div>
+                        <!-- /.tab-content -->
+                    </div>
+                </section>
+
+                <section class="col-lg-6 connectedSortable ui-sortable">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Mis planes de ahorro</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table class="table table-bordered">
+                                <tbody>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Fecha</th>
+                                    <th>Monto</th>
+                                    <th>Meses</th>
+                                </tr>
+                                </tbody></table>
+                        </div>
+                    </div>
+
+                    <div class="callout callout-success" style="color:#333;">
+                        <h4><i class="fa fa-calendar"></i> Lista de proximas actualizaciones</h4>
+                        <p><i class="fa fa-check"></i> Nos mudaremos a www.fianzr.com :)</p>
+                        <p><i class="fa fa-check"></i> Mas funcionalidades de analisis en "Planes de ahorro"</p>
+                        <p><i class="fa fa-spinner fa-pulse"></i> Diferir pagos en efectivo, credito o debito</p>
+                        <p><i class="fa fa-clock-o"></i> Generador de hoja de balance</p>
+                        <p><i class="fa fa-clock-o"></i> App mobile para cargar tus gastos e ingresos desde tu Android</p>
+                    </div>
+                </section>
+
+                <!-- Modal: GRAFICO DE CONSUMO DIARIO -->
+                <div class="modal fade in" id="grafico-plan">
+                    <div class="modal-dialog" style="width:800px;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span></button>
+                                <h4 class="modal-title"><i class="fa fa-line-chart"></i> Grafico de evolucion de consumo/plan</h4>
+                            </div>
+                            <div class="modal-body incidencia-contenido">
+                                <p>El consumo diario no debe exceder la linea marcada, excederla significa estar gastando recursos diarios que podria haber destinado a su plan de ahorro. Si no ve ninguna linea en el gráfico significa que el limite esta por encima de la escala que se puede mostrar y que usted va por buen camino en su plan de ahorro.</p>
+                                <div id="chart" style="width:750px"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default pull-left btn-incidencia-cerrar" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal: PRESUPUESTO MENSUAL -->
+                <div class="modal fade in" id="presupuesto-mensual-modal">
+                    <div class="modal-dialog" style="width:800px;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span></button>
+                                <h4 class="modal-title"><i class="fa fa-dollar"></i> Presupuesto mensual</h4>
+                            </div>
+                            <div class="modal-body incidencia-contenido">
+                                <p>Este valor representa la suma de todos sus ingresos, excluyendo a los ingresos variables. Este valor le permite saber cual es el presupuesto mensual seguro que usted tiene para administrar durante el mes en curso.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default pull-left btn-incidencia-cerrar" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal: PRESUPUESTO MENSUAL -->
+                <div class="modal fade in" id="gasto-mensual-modal">
+                    <div class="modal-dialog" style="width:800px;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span></button>
+                                <h4 class="modal-title"><i class="fa fa-pie-chart"></i> Gastos mensuales fijos</h4>
+                            </div>
+                            <div class="modal-body incidencia-contenido">
+                                <p>Este es el monto que debe descontar todos los meses de su presupuesto mensual, representa todos los servicios que se facturan mes a mes (como Internet, Seguro medico, etc.) es la suma de todas las incidencias del mes clasificadas como "gastos fijos". No necesariamente tienen que ser servicios pagados mes a mes, sino que tambien pueden hacerlo servicios de pago bimestral como el consumo electrico.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default pull-left btn-incidencia-cerrar" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal: PRESUPUESTO MENSUAL -->
+                <div class="modal fade in" id="saldo-actual-modal">
+                    <div class="modal-dialog" style="width:800px;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span></button>
+                                <h4 class="modal-title"><i class="fa fa-money"></i> Saldo actual</h4>
+                            </div>
+                            <div class="modal-body incidencia-contenido">
+                                <p>Una vez que ha registrado el pago de todos sus servicios mensuales (o bimestrales) registrados como "gastos fijos", estos automaticamente se restan de su presupuesto total (la suma del presupuesto mensual más los ingresos extraordinarios), el valor que se obtiene de esta operacion da como resultado su "Saldo actual" que es la suma de dinero disponible para administrar durante el resto del mes.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default pull-left btn-incidencia-cerrar" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal: PRESUPUESTO MENSUAL -->
+                <div class="modal fade in" id="ingresos-extraordinarios-modal">
+                    <div class="modal-dialog" style="width:800px;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span></button>
+                                <h4 class="modal-title"><i class="fa fa-suitcase"></i> Ingresos extraordinarios</h4>
+                            </div>
+                            <div class="modal-body incidencia-contenido">
+                                <p>Si usted realiza trabajos como autónomo, o tiene cualquier otra actividad que durante el mes le otorgue ingresos, puede registrarlas bajo el tipo de incidencia "ingreso variable" y se veran reflejadas en la bandeja de entrada como "Ingresos extraordinarios", podra ver la suma de estos ingresos más su presupuesto mensual total en el grafico de Ingresos.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default pull-left btn-incidencia-cerrar" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal: PRESUPUESTO MENSUAL -->
+                <div class="modal fade in" id="bienvenido-modal">
+                    <div class="modal-dialog" style="width:800px;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span></button>
+                                <h4 class="modal-title"><i class="fa fa-tachometer"></i> Bienvenido</h4>
+                            </div>
+                            <div class="modal-body incidencia-contenido">
+                                <p><strong>Bienvenido!</strong> con el sistema de finanzas personales podrá controlar sus ingresos mensuales, consultar su historial de gastos y organizar planes de ahorro.</p>
+                                <p>Lo primero que debe hacer para empezar a usar el sistema es cargar los "tipos de incidencias" yendo a la opción "Ingresos y gastos" ubicada en el panel izquierdo, y luego hacer click en el botón "Agregar tipos de incidencias".</p>
+                                <p>En "Agregar tipos de incidencias" usted deberá agregar todos los tipos de gastos e ingresos posibles que pueda llegar a tener durante el mes, por ejemplo, si usted este mes le toca pagar la luz, ingrese en la casilla de texto "Luz" y en "tipo de incidencia" como "gasto fijo", porque es un pago que se hace periódicamente, también puede agregar "gastos variables", como algún producto tecnológico que haya comprado o una cena sorpresa, cualquier tipo de gasto que se produce de forma ocasional es un "gasto variable", también puede poner un "ingreso fijo" con el nombre de "Sueldo mensual" para registrar cuando le depositen el sueldo, también puede registrar inversiones si así lo desea y controlar la cantidad de fondos que destina a las mismas.</p>
+                                <p>Una vez cargados los tipos de incidencias llegó la hora de empezar a registrar sus ingresos o gastos, para ello vaya a la opción "Ingresos y gastos" en el panel izquierdo, y luego click en el botón "Agregar incidencia", en este panel podrá seleccionar que tipo de pago o ingreso quiere registrar, la fecha en la que se produjo este pago y especificar el monto del mismo, además si desea puede realizar comentarios relativos a dicho gasto.</p>
+                                <p>Muy pronto aparecerán más funcionalidades para que pueda controlar sus gastos. Este cartel dejara de mostrarse cuando haya cargado al menos un tipo de incidencia en el sistema.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default pull-left btn-incidencia-cerrar" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    $('.btn-ahorro-chart').click(function(){
+                        var element = $(this);
+                        chartDraw(element);
+                    });
+
+                    $('#bienvenido-modal').modal();
+                });
+
+                function chartDraw(plan)
+                {
+                    var limite = plan.attr('data-limite');
+
+                    Highcharts.chart('chart', {
+                        chart: {
+                            type: 'spline'
+                        },
+                        title: {
+                            text: ''
+                        },
+                        xAxis: {
+                            type: 'datetime',
+                            labels: {
+                                overflow: 'justify'
+                            }
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'dinero'
+                            },
+                            minorGridLineWidth: 0,
+                            gridLineWidth: 0,
+                            alternateGridColor: null,
+                            plotLines: [{
+                                value: limite,
+                                color: 'red',
+                                width: 2,
+                                label: {
+                                    text: 'Limite de consumo para plan de ahorro',
+                                    align: 'center',
+                                    style: {
+                                        color: 'gray'
+                                    }
+                                }
+                            }]
+                        },
+                        tooltip: {
+                            valueSuffix: ' $'
+                        },
+                        plotOptions: {
+                            spline: {
+                                lineWidth: 4,
+                                states: {
+                                    hover: {
+                                        lineWidth: 5
+                                    }
+                                },
+                                marker: {
+                                    enabled: false
+                                },
+                                pointInterval: 86400000, // one day
+                                pointStart: Date.UTC(2017, 3, 1, 0, 0, 0)
+                            }
+                        },
+                        series: [{
+                            name: 'Consumo diario',
+                            data: [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, ]
+
+                        }],
+                        navigation: {
+                            menuItemStyle: {
+                                fontSize: '10px'
+                            }
+                        }
+                    });
+                }
+            </script>
