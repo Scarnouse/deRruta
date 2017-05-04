@@ -47,7 +47,7 @@ class RouteController extends Controller
             array(
                 'user' => $user,
                 'routes' => $routes,
-                'site' => "Rutas"
+                'site' => "Rutas",
             )
         );
     }
@@ -63,6 +63,12 @@ class RouteController extends Controller
 
         $route = $route[0];
 
+        $ownRoute = false;
+        if($route->getUser() == $user)
+        {
+            $ownRoute = true;
+        }
+
         $poiModel = $this->get('druta.model.poi_model');
         $pois = $poiModel->findByRoute($route);
 
@@ -70,7 +76,8 @@ class RouteController extends Controller
             array(
                 'user' => $user,
                 'pois' => $pois,
-                'site' => $route->getName()
+                'site' => $route->getName(),
+                'own_route' => $ownRoute
             )
         );
     }
