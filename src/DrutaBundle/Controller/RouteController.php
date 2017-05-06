@@ -2,10 +2,11 @@
 
 namespace DrutaBundle\Controller;
 
+use DrutaBundle\Form\FormRouteCreateBasic;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use DrutaBundle\Util\DoctrineHelp;
+use DrutaBundle\Entity\Route as NewRoute;
 
 /**
  * @Route("/user")
@@ -26,7 +27,8 @@ class RouteController extends Controller
             array(
                 'user' => $user,
                 'routes' => $routes,
-                'site' => "Mis Rutas"
+                'site' => "Mis Rutas",
+                'own_route' => true
             )
         );
     }
@@ -47,7 +49,8 @@ class RouteController extends Controller
             array(
                 'user' => $user,
                 'routes' => $routes,
-                'site' => "Rutas",
+                'site' => "Otras Rutas",
+                'own_route' => false
             )
         );
     }
@@ -72,6 +75,9 @@ class RouteController extends Controller
         $poiModel = $this->get('druta.model.poi_model');
         $pois = $poiModel->findByRoute($route);
 
+        $session = $request->getSession();
+        $session->set('route_id', $route->getId());
+
         return $this->render('@Druta/Route/route_detail.html.twig',
             array(
                 'user' => $user,
@@ -80,5 +86,66 @@ class RouteController extends Controller
                 'own_route' => $ownRoute
             )
         );
+    }
+
+    /**
+     * @Route("/create_route/", name="create_route")
+     */
+    public function createRouteAction(Request $request)
+    {
+        $user = $this->getUser();
+
+        $route = new NewRoute();
+
+        $formBasic = $this->createForm(new FormRouteCreateBasic(), $route);
+        $formBasic->handleRequest($request);
+
+        return $this->render('@Druta/Route/route_form.html.twig',
+            array(
+                'formBasic' => $formBasic->createView(),
+                'user' => $user,
+                'site' => 'Crear Ruta'
+            )
+        );
+    }
+
+    /**
+     * @Route("/save_route/", name="save_route")
+     */
+    public function saveRouteAction(Request $request)
+    {
+        if($request->request->has('save')) {
+            $user = $this->getUser();
+
+            $routeModel = $this->get('druta.model.route_model');
+
+            $route = new NewRoute();
+            $route->setUser($user);
+
+            $form = $this->createForm(new FormRouteCreateBasic(), $route);
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+                $fileUploaderModel = $this->get('druta.model.file_uploader');
+                $fileName = $fileUploaderModel->uploadFile($route);
+                $route->setFilenameImage($fileName);
+
+                $routeModel->add($route);
+                $routeModel->applyChanges();
+
+                $response = $this->forward('DrutaBundle:Route:myRoutes');
+
+                return $response;
+            } else {
+                $this->addFlash(
+                    'notice',
+                    'Datos introducidos no validos'
+                );
+
+                $response = $this->forward('DrutaBundle:Route:myRoutes');
+
+                return $response;
+            }
+        }
     }
 }

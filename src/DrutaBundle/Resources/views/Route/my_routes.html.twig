@@ -1,39 +1,35 @@
 {% extends 'DrutaBundle:Default:dashboard.html.twig' %}
 
 {% block content %}
+
+    {% for flash_message in app.session.flashBag.get('notice') %}
+        <div class="alert alert-primary alert-styled-left">
+            <span class="text-semibold">{{ flash_message }}</span>
+        </div>
+    {% endfor %}
+    {% if app.session.flashBag.has('success') %}
+        <div class="alert alert-success">
+            {% for msg in app.session.flashBag.get('success') %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <!-- box body -->
     <div class="box-body">
-        {#<div id="emaple1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-
-           <form method="GET" action="">
-                 <div class="row">
-                     <div class="col-sm-6">
-                         <div class="dataTables_length">
-                             <label>Mostrando
-                                 <select name="entries" aria-controls="example1" class="form-control input-sm">
-                                     <option value="15">15</option>
-                                     <option value="30">30</option>
-                                     <option value="50">50</option>
-                                     <option value="100">100</option>
-                                 </select> entradas
-                              </label>
-                         </div>
-                     </div>
-                     <div class="col-sm-6">
-                         <div id="example1_filter" class="dataTables_filter">
-                             <label>Buscar:<input name="search" class="form-control input-sm" value="" aria-controls="example1" type="search">
-                             </label>
-                         </div>
-                     </div>
-                 </div>
-             </form>
-        </div>#}
-
+        {% if own_route %}
+            <div class="pull-right">
+                <a class="btn btn-app" href="{{ path('create_route') }}">
+                    <i class="fa fa-road"></i> Crear Ruta
+                </a>
+            </div>
+        {% endif %}
         <div class="row">
             <div class="col-sm-12">
                 <table id="example1" class="table table-bordered table-striped table-hover">
                     <thead>
                     <tr>
+                        <th class='hidden'></th>
                         <th>Nombre</th>
                         <th>Descripción</th>
                         <th>Fecha</th>
@@ -42,17 +38,14 @@
                     </thead>
                     <tbody>
                     {% for route in routes %}
-                    <tr class='clickable-row' id="{{ route.getId() }}">
-                        <th>{{ route.getName() }}</th>
-                        <th>{{ route.getDescription() }}</th>
-                        <th>{{ route.getDate() | date('d/m/Y') }}</th>
-                        <th><img src="{{ route.getWebPathImage() }}" height="42" width="42"></th>
+                    <tr class='clickable-row'>
+                        <td class='hidden'>{{ route.getId() }}</td>
+                        <td>{{ route.getName() }}</td>
+                        <td>{{ route.getDescription() }}</td>
+                        <td>{{ route.getDate() | date('d/m/Y') }}</td>
+                        <td><img src="{{ route.getWebPathImage() }}" height="42" width="42"></td>
                     </tr>
                     {% endfor %}
-                    {#<style>
-                        .btn-success {display:none;}
-                        .btn-warning {display:none;}
-                    </style>#}
                     </tbody>
                 </table>
             </div>
@@ -73,15 +66,9 @@
 
     {% block javascript %}
         <script type="text/javascript">
-            {#$('select[name=entries]').change(function () {
-                var item = $('select[name=entries]').find(":selected").text();
-                var url = '{{ path('my_routes', {'maxItemPerPage': 'numMaxItems' }) }}';
-
-                window.location.href = url.replace("numMaxItems", item);
-            });#}
             jQuery(document).ready(function($) {
                 $(".clickable-row").click(function() {
-                    var item = $('.clickable-row').attr('id');
+                    var item = $(this).closest('tr').find('.hidden').text();
                     var url = '{{ path('route_detail', {'id': 'idRoute' }) }}';
 
                     window.location.href = url.replace("idRoute", item);

@@ -3,10 +3,11 @@
 namespace DrutaBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
 
 class POIRepository extends EntityRepository
 {
-    //find by id
+    //find by route
     public function findByRoute($route)
     {
         $sql = $this->createQueryBuilder('p')
@@ -14,9 +15,18 @@ class POIRepository extends EntityRepository
 
         $query = $sql->getQuery();
 
-        ldd($query->getArrayResult());
-
         return $query->getArrayResult();
+    }
+
+    //find by id
+    public function findById($id)
+    {
+        $sql = $this->createQueryBuilder('p')
+            ->where('p.id = :id')->setParameter('id', $id);
+
+        $query = $sql->getQuery();
+
+        return $query->getResult();
     }
 
 }

@@ -1,0 +1,77 @@
+{% extends 'DrutaBundle:Default:dashboard.html.twig' %}
+
+{% block content %}
+
+    <section class="content">
+
+        <div class="row">
+            <div class="col-md-12">
+                {% if ok_msg is defined %}
+
+                    <div class="alert alert-success alert-styled-left alert-bordered alert-arrow-left">
+                        <span class="text-semibold"></span> {{ ok_msg }}
+                    </div>
+
+
+                {% elseif error_msg is defined %}
+
+                    <div class="alert alert-danger alert-styled-left alert-bordered">
+                        <span class="text-semibold"></span> {{ ok_msg }}
+                    </div>
+
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+            </div>
+        </div>
+        <div class="row">
+            <!-- /.col -->
+            <div class="col-md-12">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#settings" data-toggle="tab">Ruta</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <form class="form-horizontal" method="POST" action="{{ path('save_route') }}" name="route" enctype="multipart/form-data">
+                            <div class="active tab-pane" id="settings">
+                                {{ form_start(formBasic) }}
+                                {{ form_errors(formBasic) }}
+                                <div class="form-group">
+                                    <label for="inputFirstName" class="col-sm-2 control-label">{{ form_label(formBasic.name) }}</label>
+                                    <div class="col-sm-10">
+                                        {{ form_widget(formBasic.name) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputLastName" class="col-sm-2 control-label">{{ form_label(formBasic.description) }}</label>
+                                    <div class="col-sm-10">
+                                        {{ form_widget(formBasic.description) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputFile" class="col-sm-2 control-label">{{ form_label(formBasic.fileImage) }}</label>
+                                    {{ form_widget(formBasic.fileImage) }}
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-danger" name="save">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_end(formBasic) }}
+                        </form>
+
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+                <!-- /.nav-tabs-custom -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+    </section>
+{% endblock %}

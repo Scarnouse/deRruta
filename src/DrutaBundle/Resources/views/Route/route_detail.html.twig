@@ -2,6 +2,19 @@
 
 {% block content %}
 
+    {% for flash_message in app.session.flashBag.get('notice') %}
+        <div class="alert alert-primary alert-styled-left">
+            <span class="text-semibold">{{ flash_message }}</span>
+        </div>
+    {% endfor %}
+    {% if app.session.flashBag.has('success') %}
+        <div class="alert alert-success">
+            {% for msg in app.session.flashBag.get('success') %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <div class="row">
         <div class = "col-md-9">
             <div class="box box-success">
@@ -24,9 +37,9 @@
                 <!-- small box -->
                 <div class="small-box bg-aqua">
                     <div class="inner">
-                        <h3>{{ poi.getName() }}</h3>
+                        <h3>{{ poi.getName() | truncate(10)}}</h3>
 
-                        <p>{{ poi.getDescription() }}</p>
+                        <p>{{ poi.getDescription() | truncate(30) }}</p>
                     </div>
                     <div class="icon">
                         <i class="fa fa-bandcamp"></i>
@@ -36,16 +49,29 @@
         </div>
     </div>
 
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Inserta POI</h4>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+
     {% block javascript %}
         <script>
             var locations = [];
             {% for poi in pois  %}
-                var latitude = '{{ poi.getLatitude() }}';
-                var longitude = '{{ poi.getLongitude() }}';
-                locations.push({lat: Number(latitude), lng: Number(longitude)});
+                var lat = '{{ poi.getLatitude() }}';
+                var lon = '{{ poi.getLongitude() }}';
+                locations.push({lat: Number(lat), lng: Number(lon)});
             {% endfor %}
 
-            var map, infoWindow;
+            var map, infoWindow, marker, latitude, longitude;
 
             function initMap() {
                 map = new google.maps.Map(document.getElementById('map'), {
@@ -130,29 +156,48 @@
                 var markers = locations.map(function (location) {
                     return new google.maps.Marker({
                         position: location,
-                        icon: icon,
-                        draggable: true
+                        icon: icon
                     });
                 });
 
                 //insert new POI
-
                 google.maps.event.addListener(map, 'dblclick', function(e) {
                     {% if own_route %}
-                        placeMarkerAndPanTo(e.latLng, map);
+                        var location = e.latLng;
+                        placeMarkerAndPanTo(location, map);
                     {% endif %}
                 });
 
-
                 function placeMarkerAndPanTo(latLng, map) {
-                    //TODO ajax for save this new POI
-                    var marker = new google.maps.Marker({
+                    marker = new google.maps.Marker({
                         position: latLng,
                         map: map,
                         icon: icon,
                         drawable: true
                     });
+                    getPOIForm(latLng);
                 }
+
+                function getPOIForm(location) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ url('ajax_new_poi') }}?lat="+location.lat()+"&lon="+location.lng(),
+                        success: function(data){
+                            latitude = data.latitude;
+                            longitude = data.longitude;
+                            $(".modal-body").append(data.html);
+                            $("#myModal").modal('show');
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log('Error: ' + errorThrown)
+                        }
+                    });
+                }
+
+                $('#myModal').on('hidden.bs.modal', function(){
+                    $('.modal-body').empty();
+                    marker.setMap(null);
+                });
 
                 var markerCluster = new MarkerClusterer(map, markers,
                     {imagePath: "{{ asset('uploads/place-map-marker-default.png')}}"});

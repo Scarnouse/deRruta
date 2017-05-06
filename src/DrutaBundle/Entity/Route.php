@@ -78,6 +78,7 @@ class Route
     function __construct()
     {
         $this->filenameImage = "without_image.png";
+        $this->date = new \DateTime();
         $this->POI = new ArrayCollection();
     }
 

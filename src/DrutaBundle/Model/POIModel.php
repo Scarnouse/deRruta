@@ -38,6 +38,11 @@ class POIModel
         return $this->repository->findByRoute($route);
     }
 
+    public function findById($id)
+    {
+        return $this->repository->findById($id);
+    }
+
     public function applyChanges(){
         $this->entityManager->flush();
     }

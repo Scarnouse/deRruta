@@ -17,6 +17,7 @@ class DefaultController extends Controller
     public function dashboardAction(Request $request)
     {
         $user = $this->getUser();
+        $request->getSession()->set('userId', $user->getId());
 
         return $this->render('@Druta/Default/dashboard.html.twig',
             array(

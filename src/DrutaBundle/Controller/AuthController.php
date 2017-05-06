@@ -66,10 +66,10 @@ class AuthController extends Controller
             $userModel = $this->get('druta.model.user_model');
 
             $password = $request->request->get('userCreateFormBasic')['password'];
+
             $user = new User();
             $form = $this->createForm(new FormUserCreateBasic(), $user);
             $form->handleRequest($request);
-
             $user->setPassword($password);
             $result = $userModel->registerUser($user, $role);
 
