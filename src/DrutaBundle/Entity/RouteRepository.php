@@ -15,7 +15,7 @@ class RouteRepository extends EntityRepository
 
         $query = $sql->getQuery();
 
-        return $query->getArrayResult();
+        return $query->getResult();
     }
 
     //find all
@@ -26,7 +26,7 @@ class RouteRepository extends EntityRepository
 
         $query = $sql->getQuery();
 
-        return $query->getArrayResult();
+        return $query->getResult();
     }
 
     //find by id

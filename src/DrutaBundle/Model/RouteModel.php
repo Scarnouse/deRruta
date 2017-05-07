@@ -48,9 +48,9 @@ class RouteModel
         return $this->repository->findByUser($user);
     }
 
-    public function findByCity($city)
+    public function removeRoute($route)
     {
-        return $this->repository->findByCity($city);
+        $this->entityManager->remove($route);
     }
 
     public function applyChanges(){

@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\JoinTable;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="DrutaBundle\Entity\RouteRepository")
  * @ORM\Table(name="route")
  */
 class Route

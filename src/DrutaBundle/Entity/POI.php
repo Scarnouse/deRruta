@@ -69,7 +69,7 @@ class POI
 
     /**
      * @ORM\ManyToOne(targetEntity="DrutaBundle\Entity\Route")
-     * @ORM\JoinColumn(name="route_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="route_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $route;
 

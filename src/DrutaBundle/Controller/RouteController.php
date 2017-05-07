@@ -64,8 +64,6 @@ class RouteController extends Controller
         $routeModel = $this->get('druta.model.route_model');
         $route = $routeModel->findById($id);
 
-        $route = $route[0];
-
         $ownRoute = false;
         if($route->getUser() == $user)
         {
@@ -147,5 +145,24 @@ class RouteController extends Controller
                 return $response;
             }
         }
+    }
+
+    /**
+     * @Route("/route_delete/{id}", name="route_delete")
+     */
+    public function routeDeleteAction(Request $request, $id)
+    {
+        $routeModel = $this->get('druta.model.route_model');
+        $route = $routeModel->findById($id);
+
+        if($route)
+        {
+            $routeModel->removeRoute($route);
+            $routeModel->applyChanges();
+        }
+
+        $response = $this->forward('DrutaBundle:Route:myRoutes');
+
+        return $response;
     }
 }

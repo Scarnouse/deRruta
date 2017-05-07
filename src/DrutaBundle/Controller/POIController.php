@@ -69,7 +69,6 @@ class POIController extends Controller
             $routeModel = $this->get('druta.model.route_model');
             $route = $routeModel->findById($routeId);
 
-            $route = $route[0];
             $poi->setRoute($route);
 
             $form = $this->createForm(new FormPOICreateBasic($routeId), $poi);
