@@ -43,6 +43,11 @@ class POIModel
         return $this->repository->findById($id);
     }
 
+    public function findByRouteAndLatitudeAndLongitude($route, $latitude, $longitude)
+    {
+        return $this->repository->findByRouteAndLatitudeAndLongitude($route, $latitude, $longitude);
+    }
+
     public function applyChanges(){
         $this->entityManager->flush();
     }

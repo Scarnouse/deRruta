@@ -15,7 +15,7 @@ class POIRepository extends EntityRepository
 
         $query = $sql->getQuery();
 
-        return $query->getArrayResult();
+        return $query->getResult();
     }
 
     //find by id
@@ -27,6 +27,22 @@ class POIRepository extends EntityRepository
         $query = $sql->getQuery();
 
         return $query->getResult();
+    }
+
+    public function findByRouteAndLatitudeAndLongitude($route, $latitude, $longitude)
+    {
+        if ($this->findByRoute($route))
+        {
+            $sql = $this->createQueryBuilder('p')
+                ->where('p.latitude = :latitude')->setParameter('latitude', $latitude)
+                ->andWhere('p.longitude = :longitude')->setParameter('longitude', $longitude);
+
+            $query = $sql->getQuery();
+
+            return $query->getOneOrNullResult();
+        }
+
+        return null;
     }
 
 }

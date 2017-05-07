@@ -75,7 +75,11 @@ class POIController extends Controller
             $form = $this->createForm(new FormPOICreateBasic($routeId), $poi);
             $form->handleRequest($request);
 
-            if ($form->isValid()) {
+            $latitude = $poi->getLatitude();
+            $longitude = $poi->getLongitude();
+            $repeatedPOI = $poiModel->findByRouteAndLatitudeAndLongitude($route, $latitude, $longitude);
+
+            if ($form->isValid() && !$repeatedPOI) {
                 $poiModel->add($poi);
                 $poiModel->applyChanges();
 
@@ -86,12 +90,24 @@ class POIController extends Controller
                 );
 
                 return $response;
-            } else {
+            } elseif($repeatedPOI){
+                $this->addFlash(
+                    'notice',
+                    'Coordenadas de POI repetidas'
+                );
+                $response = $this->forward('DrutaBundle:Route:routeDetail',
+                    array(
+                        'id' => $routeId
+                    )
+                );
+
+                return $response;
+            }
+            else {
                 $this->addFlash(
                     'notice',
                     'Datos introducidos no validos'
                 );
-
                 $response = $this->forward('DrutaBundle:Route:routeDetail',
                     array(
                         'id' => $routeId

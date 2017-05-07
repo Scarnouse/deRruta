@@ -7,17 +7,6 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class RouteRepository extends EntityRepository
 {
-    //find by city
-    public function findByCity($city)
-    {
-        $sql = $this->createQueryBuilder('r');
-        $sql->where('r.city = :city')->setParameter('city', $city);
-
-        $query = $sql->getQuery();
-
-        return $query->getArrayResult();
-    }
-
     //find by user
     public function findByUser($user)
     {
