@@ -2,6 +2,7 @@
 
 namespace DrutaBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -61,9 +62,10 @@ class POI
     protected $fileImage;
 
     /**
-     * @ORM\Column(name="price", type="string", length=255, nullable=true)
+     * @var DateTime
+     * @ORM\Column(type="datetime")
      */
-    protected $price;
+    protected $date;
 
     /**
      * @ORM\ManyToOne(targetEntity="DrutaBundle\Entity\Route")
@@ -75,6 +77,7 @@ class POI
     {
         $this->filenameImage = "without_image.png";
         $this->filenameIcon = "place-map-marker-default.png";
+        $this->date = new \DateTime();
     }
 
     /**
@@ -224,22 +227,6 @@ class POI
     /**
      * @return mixed
      */
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
-     * @param mixed $price
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getRoute()
     {
         return $this->route;
@@ -251,6 +238,22 @@ class POI
     public function setRoute($route)
     {
         $this->route = $route;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param mixed $date
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
     }
 
     public function getAbsolutePathImage()

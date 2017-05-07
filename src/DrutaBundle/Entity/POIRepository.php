@@ -11,7 +11,8 @@ class POIRepository extends EntityRepository
     public function findByRoute($route)
     {
         $sql = $this->createQueryBuilder('p')
-            ->where('p.route = :route')->setParameter('route', $route);
+            ->where('p.route = :route')->setParameter('route', $route)
+            ->orderBy('p.date', 'ASC');
 
         $query = $sql->getQuery();
 

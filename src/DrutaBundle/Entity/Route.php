@@ -55,13 +55,6 @@ class Route
     protected $fileImage;
 
     /**
-     * @var City
-     * @ORM\ManyToOne(targetEntity="DrutaBundle\Entity\City")
-     * @ORM\JoinColumn(name="city_id", referencedColumnName="id")
-     */
-    protected $city;
-
-    /**
      * @var User
      * @ORM\ManyToOne(targetEntity="DrutaBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
@@ -176,22 +169,6 @@ class Route
     public function setFileImage($fileImage)
     {
         $this->fileImage = $fileImage;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCity()
-    {
-        return $this->city;
-    }
-
-    /**
-     * @param mixed $city
-     */
-    public function setCity($city)
-    {
-        $this->city = $city;
     }
 
     /**
