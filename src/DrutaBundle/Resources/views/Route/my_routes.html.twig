@@ -33,6 +33,9 @@
                         <th>Nombre</th>
                         <th>Descripción</th>
                         <th>Fecha</th>
+                        {% if not own_route %}
+                            <th>Autor</th>
+                        {% endif %}
                         <th>Imagen</th>
                         {% if own_route %}
                             <th></th>
@@ -46,11 +49,17 @@
                         <td class='clickable-row'>{{ route.getName() }}</td>
                         <td class='clickable-row'>{{ route.getDescription() }}</td>
                         <td class='clickable-row'>{{ route.getDate() | date('d/m/Y') }}</td>
+                        {% if not own_route %}
+                            <td class='clickable-row'>{{ route.getUser().getEmail() }}</td>
+                        {% endif %}
                         <td class='clickable-row'><img src="{{ route.getWebPathImage() }}" height="42" width="42"></td>
                         {% if own_route %}
-                            <td>
+                            <td class="pull-right">
                                 <a class="btn btn-app" id="delete">
                                     <i class="fa fa-times-rectangle"></i> Borrar Ruta
+                                </a>
+                                <a class="btn btn-app" id="edit">
+                                    <i class="fa fa-edit"></i> Editar Ruta
                                 </a>
                             </td>
                         {% endif %}
@@ -86,6 +95,12 @@
                 $("#delete").click(function() {
                     var item = $(this).closest('tr').find('.hidden').text();
                     var url = '{{ path('route_delete', {'id': 'idRoute' }) }}';
+
+                    window.location.href = url.replace("idRoute", item);
+                });
+                $("#edit").click(function() {
+                    var item = $(this).closest('tr').find('.hidden').text();
+                    var url = '{{ path('route_edit', {'id': 'idRoute' }) }}';
 
                     window.location.href = url.replace("idRoute", item);
                 });

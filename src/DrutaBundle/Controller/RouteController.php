@@ -117,8 +117,15 @@ class RouteController extends Controller
 
             $routeModel = $this->get('druta.model.route_model');
 
-            $route = new NewRoute();
-            $route->setUser($user);
+            $idRoute = $request->request->get('routeCreateFormBasic')['id'];
+
+            if(!$idRoute)
+            {
+                $route = new NewRoute();
+                $route->setUser($user);
+            } else {
+                $route = $routeModel->findById($idRoute);
+            }
 
             $form = $this->createForm(new FormRouteCreateBasic(), $route);
             $form->handleRequest($request);
@@ -164,5 +171,32 @@ class RouteController extends Controller
         $response = $this->forward('DrutaBundle:Route:myRoutes');
 
         return $response;
+    }
+
+    /**
+     * @Route("/route_edit/{id}", name="route_edit")
+     */
+    public function routeEditAction(Request $request, $id)
+    {
+        $user = $request->getUser();
+
+        $routeModel = $this->get('druta.model.route_model');
+        $route = $routeModel->findById($id);
+
+        if(!$user){
+            $user = $route->getUser();
+        }
+
+        $formBasic = $this->createForm(new FormRouteCreateBasic(), $route);
+        $formBasic->handleRequest($request);
+
+        return $this->render('@Druta/Route/route_form.html.twig',
+            array(
+                'formBasic' => $formBasic->createView(),
+                'user' => $user,
+                'route' => $route,
+                'site' => $route->getName()
+            )
+        );
     }
 }
