@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\JoinTable;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * @ORM\Entity(repositoryClass="DrutaBundle\Entity\RouteRepository")
@@ -22,12 +23,14 @@ class Route
      * @ORM\Column(name="id", type="string")
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Kiefernwald\DoctrineUuid\Doctrine\ORM\UuidGenerator")
+     * @JMS\Groups({"user"})
      */
     protected $id;
 
     /**
      * @var string
      * @ORM\Column(name="name", type="string")
+     * @JMS\Groups({"user"})
      */
     protected $name;
 
@@ -56,8 +59,9 @@ class Route
 
     /**
      * @var User
-     * @ORM\ManyToOne(targetEntity="DrutaBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="DrutaBundle\Entity\User", inversedBy="route")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @JMS\Groups({"user"})
      */
     protected $user;
 

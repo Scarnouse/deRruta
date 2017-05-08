@@ -12,3 +12,9 @@ login_check:
 
 logout:
     pattern: /logout
+
+api:
+    resource: "@ApiBundle/Controller/"
+    type:     annotation
+    prefix:   /
+    defaults: {_format: json}

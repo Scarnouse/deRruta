@@ -59,17 +59,15 @@ class UserController extends Controller
 
             } else {
 
-                $object = $user[0];
-
-                $form = $this->createForm(new FormUserModifyBasic(), $object);
+                $form = $this->createForm(new FormUserModifyBasic(), $user);
                 $form->handleRequest($request);
 
                 if($form->isValid())
                 {
                     $fileUploaderModel = $this->get('druta.model.file_uploader');
-                    $fileName = $fileUploaderModel->uploadFile($object);
-                    $object->setFilenameImage($fileName);
-                    $userModel->update($object);
+                    $fileName = $fileUploaderModel->uploadFile($user);
+                    $user->setFilenameImage($fileName);
+                    $userModel->update($user);
                     $userModel->applyChanges();
                 }
             }
@@ -79,7 +77,7 @@ class UserController extends Controller
             array(
                 'formBasic' => $form->createView(),
                 'ok_msg' => "Perfil actualizado correctamente",
-                'user' => $object,
+                'user' => $user,
                 'site' => "Perfil"
             )
         );

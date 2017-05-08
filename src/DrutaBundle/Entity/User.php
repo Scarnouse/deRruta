@@ -4,13 +4,18 @@ namespace DrutaBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use DrutaBundle\Entity\City;
 use DrutaBundle\Entity\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation as JMS;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="DrutaBundle\Entity\UserRepository")
+ * @UniqueEntity(
+ *     fields={"username"},
+ *     message="Email en uso"
+ * )
  * @ORM\Table(name="user")
  */
 class User implements UserInterface, \Serializable
@@ -20,11 +25,13 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(name="id", type="string")
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Kiefernwald\DoctrineUuid\Doctrine\ORM\UuidGenerator")
+     * @JMS\Groups({"user"})
      */
     protected $id;
 
     /**
      * @ORM\Column(name="first_name", type="string")
+     * @JMS\Groups({"user"})
      */
     protected $firstName;
 
@@ -35,6 +42,7 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(name="file_name_image", type="string", length=50, nullable=true)
+     * @JMS\Groups({"user"})
      */
     protected $filenameImage;
 
@@ -55,13 +63,15 @@ class User implements UserInterface, \Serializable
 
     /**
      * @var ArrayCollection<Route>
-     * @ORM\OneToMany(targetEntity="DrutaBundle\Entity\Route", mappedBy="route")
+     * @ORM\OneToMany(targetEntity="DrutaBundle\Entity\Route", mappedBy="user")
+     * @JMS\Groups({"user"})
      */
-    protected $route;
+    //protected $route;
 
     /**
      * @var Role
-     * @ORM\OneToOne(targetEntity="DrutaBundle\Entity\Role",mappedBy="user")
+     * @ORM\OneToOne(targetEntity="DrutaBundle\Entity\Role", mappedBy="user")
+     *
      */
     protected $roles;
 
@@ -71,16 +81,19 @@ class User implements UserInterface, \Serializable
      *     message = "El email introducido no es válido",
      *     checkMX = true
      * )
+     * @JMS\Groups({"user"})
      */
     protected $email;
 
     /**
      * @ORM\Column(name="username", type="string", length=255)
+     *
      */
     protected $username;
 
     /**
      * @ORM\Column(name="date_member", type="date")
+     * @JMS\Groups({"user"})
      */
     protected $dateMember;
 
@@ -88,7 +101,7 @@ class User implements UserInterface, \Serializable
     {
         $this->filenameImage = "without_avatar.png";
         $this->dateMember = new \DateTime();
-        $this->route = new ArrayCollection();
+        //$this->route = new ArrayCollection();
     }
 
     /**
@@ -206,18 +219,18 @@ class User implements UserInterface, \Serializable
     /**
      * @return ArrayCollection
      */
-    public function getRoute()
+/*    public function getRoute()
     {
         return $this->route;
-    }
+    }*/
 
     /**
      * @param ArrayCollection $route
      */
-    public function setRoute($route)
+/*    public function setRoute($route)
     {
         $this->route = $route;
-    }
+    }*/
 
     /**
      * @return mixed

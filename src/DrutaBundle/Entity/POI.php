@@ -68,7 +68,7 @@ class POI
     protected $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="DrutaBundle\Entity\Route")
+     * @ORM\ManyToOne(targetEntity="DrutaBundle\Entity\Route", inversedBy="POI")
      * @ORM\JoinColumn(name="route_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $route;

@@ -17,3 +17,9 @@ services:
     druta.model.poi_model:
         class: DrutaBundle\Model\POIModel
         arguments: ['@doctrine.orm.entity_manager']
+
+    get_set_method_normalizer:
+            class: Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer
+            public: false
+            tags:
+                - { name: serializer.normalizer }

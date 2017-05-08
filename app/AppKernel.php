@@ -18,6 +18,8 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new DrutaBundle\DrutaBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
+            new ApiBundle\ApiBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

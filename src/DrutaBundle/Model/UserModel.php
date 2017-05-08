@@ -82,4 +82,22 @@ class UserModel
         }
     }
 
+    //api login
+    public function loginByEmail($email, $password)
+    {
+        $user = $this->findByEmail($email);
+
+        $dataBasePassword = $user->getPassword();
+        $salt = $user->getSalt();
+        $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
+        $postedPassword = $encoder->encodePassword($password, $salt);
+
+        if($dataBasePassword == $postedPassword)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
 }

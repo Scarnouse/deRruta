@@ -11,7 +11,8 @@ class RouteRepository extends EntityRepository
     public function findByUser($user)
     {
         $sql = $this->createQueryBuilder('r');
-        $sql->where('r.user = :user')->setParameter('user', $user);
+        $sql->where('r.user = :user')->setParameter('user', $user)
+            ->orderBy('r.date', 'DESC');
 
         $query = $sql->getQuery();
 
@@ -22,7 +23,7 @@ class RouteRepository extends EntityRepository
     public function findAll()
     {
         $sql = $this->createQueryBuilder('r')
-            ->orderBy('r.date', 'ASC');
+            ->orderBy('r.date', 'DESC');
 
         $query = $sql->getQuery();
 
