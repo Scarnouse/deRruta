@@ -36,8 +36,9 @@
             {% for poi in pois %}
                 <!-- small box -->
                 <div class="small-box bg-aqua">
+                    <br>
                     <div class="inner">
-                        <h3>{{ poi.getName() | truncate(10)}}</h3>
+                        <h4><strong>{{ poi.getName() | truncate(20) }}</strong></h4>
 
                         <p>{{ poi.getDescription() | truncate(30) }}</p>
                     </div>

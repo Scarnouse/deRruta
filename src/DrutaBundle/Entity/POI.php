@@ -5,6 +5,7 @@ namespace DrutaBundle\Entity;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * @ORM\Entity(repositoryClass="DrutaBundle\Entity\POIRepository")
@@ -18,26 +19,31 @@ class POI
      * @ORM\Column(name="id", type="string")
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Kiefernwald\DoctrineUuid\Doctrine\ORM\UuidGenerator")
+     * @JMS\Groups({"pois"})
      */
     protected $id;
 
     /**
      * @ORM\Column(name="name", type="string")
+     * @JMS\Groups({"pois"})
      */
     protected $name;
 
     /**
      * @ORM\Column(name="latitude", type="string", length=255)
+     * @JMS\Groups({"pois"})
      */
     protected $latitude;
 
     /**
      * @ORM\Column(name="longitude", type="string", length=255)
+     * @JMS\Groups({"pois"})
      */
     protected $longitude;
 
     /**
      * @ORM\Column(name="description", type="string")
+     * @JMS\Groups({"pois"})
      */
     protected $description;
 
@@ -64,6 +70,7 @@ class POI
     /**
      * @var DateTime
      * @ORM\Column(type="datetime")
+     * @JMS\Groups({"pois"})
      */
     protected $date;
 

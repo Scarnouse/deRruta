@@ -23,26 +23,28 @@ class Route
      * @ORM\Column(name="id", type="string")
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Kiefernwald\DoctrineUuid\Doctrine\ORM\UuidGenerator")
-     * @JMS\Groups({"user"})
+     * @JMS\Groups({"user", "routes", "route_by_user"})
      */
     protected $id;
 
     /**
      * @var string
      * @ORM\Column(name="name", type="string")
-     * @JMS\Groups({"user"})
+     * @JMS\Groups({"user", "routes", "route_by_user"})
      */
     protected $name;
 
     /**
      * @var string
      * @ORM\Column(name="description", type="string")
+     * @JMS\Groups({"routes", "route_by_user"})
      */
     protected $description;
 
     /**
      * @var DateTime
      * @ORM\Column(type="datetime")
+     * @JMS\Groups({"routes", "route_by_user"})
      */
     protected $date;
 
@@ -61,7 +63,7 @@ class Route
      * @var User
      * @ORM\ManyToOne(targetEntity="DrutaBundle\Entity\User", inversedBy="route")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * @JMS\Groups({"user"})
+     * @JMS\Groups({"user", "route_by_user"})
      */
     protected $user;
 
@@ -70,13 +72,13 @@ class Route
      * @var ArrayCollection<POI>
      * @ORM\OneToMany(targetEntity="DrutaBundle\Entity\POI", mappedBy="route")
      */
-    protected $POI;
+    //protected $POI;
 
     function __construct()
     {
         $this->filenameImage = "without_image.png";
         $this->date = new \DateTime();
-        $this->POI = new ArrayCollection();
+        //$this->POI = new ArrayCollection();
     }
 
     /**
@@ -194,18 +196,18 @@ class Route
     /**
      * @return ArrayCollection
      */
-    public function getPOI()
+    /*public function getPOI()
     {
         return $this->POI;
-    }
+    }*/
 
     /**
      * @param ArrayCollection $POI
      */
-    public function setPOI($POI)
+    /*public function setPOI($POI)
     {
         $this->POI = $POI;
-    }
+    }*/
 
     public function getAbsolutePathImage()
     {

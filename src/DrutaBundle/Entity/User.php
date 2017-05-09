@@ -25,7 +25,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(name="id", type="string")
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Kiefernwald\DoctrineUuid\Doctrine\ORM\UuidGenerator")
-     * @JMS\Groups({"user"})
+     * @JMS\Groups({"user", "routes"})
      */
     protected $id;
 
@@ -81,7 +81,7 @@ class User implements UserInterface, \Serializable
      *     message = "El email introducido no es válido",
      *     checkMX = true
      * )
-     * @JMS\Groups({"user"})
+     * @JMS\Groups({"user", "routes"})
      */
     protected $email;
 
