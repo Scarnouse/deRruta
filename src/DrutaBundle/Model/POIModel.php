@@ -48,6 +48,11 @@ class POIModel
         return $this->repository->findByRouteAndLatitudeAndLongitude($route, $latitude, $longitude);
     }
 
+    public function removePOI($poi)
+    {
+        $this->entityManager->remove($poi);
+    }
+
     public function applyChanges(){
         $this->entityManager->flush();
     }

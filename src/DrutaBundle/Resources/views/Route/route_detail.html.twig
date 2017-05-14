@@ -50,7 +50,7 @@
                             <div class="hidden">{{ poi.getId() }}</div>
                             Editar <i class="fa fa-edit"></i>
                         </a>
-                        <a href="#" class="col-lg-6 small-box-footer text-navy">
+                        <a href="#" class="col-lg-6 small-box-footer text-navy deletePOI">
                             Borrar <i class="fa fa-eraser"></i>
                         </a>
                     </div>
@@ -252,6 +252,23 @@
                     success: function(data){
                         $('.modal-body').empty().append(data.html);
                         $("#editPoiModal").modal('show');
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log('Error: ' + errorThrown)
+                    }
+                });
+            });
+
+            $(".deletePOI").click(function(){
+                var poiId = $(this).closest('div').find('.hidden').text();
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('ajax_delete_poi') }}?id="+poiId,
+                    success: function(data){
+                        var item = data.id;
+                        var url = '{{ path('route_detail', {'id': 'idRoute' }) }}';
+
+                        window.location.href = url.replace("idRoute", item);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.log('Error: ' + errorThrown)

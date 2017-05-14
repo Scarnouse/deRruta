@@ -179,4 +179,28 @@ class POIController extends Controller
             ), 200);
         return $response;
     }
+
+    /**
+     * @Route("ajax/poi_delete/", name="ajax_delete_poi")
+     */
+    public function routeDeleteAction(Request $request)
+    {
+        $poiModel = $this->get('druta.model.poi_model');
+        $poiId = $request->query->get('id');
+        $poi = $poiModel->findById($poiId);
+
+        $routeId = $poi->getRoute()->getId();
+
+        if(!is_null($poi))
+        {
+            $poiModel->removePOI($poi);
+            $poiModel->applyChanges();
+        }
+
+        $response = new JsonResponse(
+            array(
+                'id' => $routeId
+            ), 200);
+        return $response;
+    }
 }
