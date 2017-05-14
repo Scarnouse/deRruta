@@ -19,13 +19,13 @@ class POI
      * @ORM\Column(name="id", type="string")
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Kiefernwald\DoctrineUuid\Doctrine\ORM\UuidGenerator")
-     * @JMS\Groups({"pois"})
+     * @JMS\Groups({"routes", "pois", "routes_by_user"})
      */
     protected $id;
 
     /**
      * @ORM\Column(name="name", type="string")
-     * @JMS\Groups({"pois"})
+     * @JMS\Groups({"routes", "pois", "routes_by_user"})
      */
     protected $name;
 

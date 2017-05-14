@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new DrutaBundle\DrutaBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new FOS\RestBundle\FOSRestBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
             new ApiBundle\ApiBundle()
         );
 

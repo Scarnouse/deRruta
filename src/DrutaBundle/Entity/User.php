@@ -25,7 +25,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(name="id", type="string")
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Kiefernwald\DoctrineUuid\Doctrine\ORM\UuidGenerator")
-     * @JMS\Groups({"user", "routes"})
+     * @JMS\Groups({"user", "routes", "route_by_user"})
      */
     protected $id;
 
@@ -64,9 +64,9 @@ class User implements UserInterface, \Serializable
     /**
      * @var ArrayCollection<Route>
      * @ORM\OneToMany(targetEntity="DrutaBundle\Entity\Route", mappedBy="user")
-     * @JMS\Groups({"user"})
+     * @JMS\Groups({"user", "route"})
      */
-    //protected $route;
+    protected $route;
 
     /**
      * @var Role
@@ -101,7 +101,7 @@ class User implements UserInterface, \Serializable
     {
         $this->filenameImage = "without_avatar.png";
         $this->dateMember = new \DateTime();
-        //$this->route = new ArrayCollection();
+        $this->route = new ArrayCollection();
     }
 
     /**
@@ -219,18 +219,18 @@ class User implements UserInterface, \Serializable
     /**
      * @return ArrayCollection
      */
-/*    public function getRoute()
+    public function getRoute()
     {
         return $this->route;
-    }*/
+    }
 
     /**
      * @param ArrayCollection $route
      */
-/*    public function setRoute($route)
+    public function setRoute($route)
     {
         $this->route = $route;
-    }*/
+    }
 
     /**
      * @return mixed
