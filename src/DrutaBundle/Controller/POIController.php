@@ -61,12 +61,37 @@ class POIController extends Controller
         $request = $this->get('request');
         $routeId = $request->getSession()->get("route_id");
 
+        $poiId = $request->get('poiCreateFormBasic')['id'];
+
         if ($request->request->has('save')) {
+
             $poiModel = $this->get('druta.model.poi_model');
+            $routeModel = $this->get('druta.model.route_model');
+
+            if(!empty($poiId))
+            {
+                $poi = $poiModel->findById($poiId);
+
+                $form = $this->createForm(new FormPOICreateBasic($routeId), $poi);
+                $form->handleRequest($request);
+
+                if($form->isValid())
+                {
+                    $poiModel->update($poi);
+                    $poiModel->applyChanges();
+
+                    $response = $this->forward('DrutaBundle:Route:routeDetail',
+                        array(
+                            'id' => $routeId
+                        )
+                    );
+
+                    return $response;
+                }
+            }
 
             $poi = new POI();
 
-            $routeModel = $this->get('druta.model.route_model');
             $route = $routeModel->findById($routeId);
 
             $poi->setRoute($route);
@@ -89,6 +114,7 @@ class POIController extends Controller
                 );
 
                 return $response;
+
             } elseif($repeatedPOI){
                 $this->addFlash(
                     'notice',
@@ -117,5 +143,40 @@ class POIController extends Controller
             }
 
         }
+    }
+
+    /**
+     * @Route("ajax/edit_poi_form", name="ajax_edit_poi")
+     */
+    function editPOIAction(Request $request)
+    {
+
+        $session = $request->getSession();
+        $routeId = $session->get('route_id');
+
+        if(! $request->isXmlHttpRequest())
+        {
+            throw new NotFoundHttpException();
+        }
+
+        $poiId = $request->query->get('id');
+
+        $poiModel = $this->get('druta.model.poi_model');
+        $poi = $poiModel->findById($poiId);
+
+
+        $form = $this->createForm(new FormPOICreateBasic($routeId), $poi);
+
+        $html = $this->renderView('@Druta/POI/poi_form.html.twig',
+            array(
+                'form'=> $form->createView()
+            )
+        );
+
+        $response = new JsonResponse(
+            array(
+                'html' => $html,
+            ), 200);
+        return $response;
     }
 }

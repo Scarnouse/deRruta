@@ -67,11 +67,6 @@ class Route
      */
     protected $user;
 
-    /**
-     * @var POI
-     * @var ArrayCollection<POI>
-     * @ORM\OneToMany(targetEntity="DrutaBundle\Entity\POI", mappedBy="route")
-     */
     //protected $POI;
 
     function __construct()

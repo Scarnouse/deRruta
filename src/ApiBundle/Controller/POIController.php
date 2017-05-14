@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class POIController extends FOSRestController
 {
-        /**
+    /**
      * @Rest\Get("/user/pois_by_route/{id}")
      */
     public function routeAction(Request $request)

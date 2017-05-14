@@ -45,17 +45,39 @@
                     <div class="icon">
                         <i class="fa fa-bandcamp"></i>
                     </div>
+                    <div class="row small-box-footer text-center center-block">
+                        <a href="#" class="col-lg-6 small-box-footer text-navy editPOI">
+                            <div class="hidden">{{ poi.getId() }}</div>
+                            Editar <i class="fa fa-edit"></i>
+                        </a>
+                        <a href="#" class="col-lg-6 small-box-footer text-navy">
+                            Borrar <i class="fa fa-eraser"></i>
+                        </a>
+                    </div>
                 </div>
             {% endfor %}
         </div>
     </div>
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="createPoiModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">Inserta POI</h4>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editPoiModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Edita POI</h4>
                 </div>
                 <div class="modal-body">
                 </div>
@@ -187,7 +209,7 @@
                             latitude = data.latitude;
                             longitude = data.longitude;
                             $(".modal-body").append(data.html);
-                            $("#myModal").modal('show');
+                            $("#createPoiModal").modal('show');
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             console.log('Error: ' + errorThrown)
@@ -220,6 +242,21 @@
                     box.removeClass("collapsed-box");
                     bf.slideDown();
                 }
+            });
+
+            $(".editPOI").click(function(){
+                var poiId = $(this).closest('div').find('.hidden').text();
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('ajax_edit_poi') }}?id="+poiId,
+                    success: function(data){
+                        $('.modal-body').empty().append(data.html);
+                        $("#editPoiModal").modal('show');
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log('Error: ' + errorThrown)
+                    }
+                });
             });
         </script>
     {% endblock %}

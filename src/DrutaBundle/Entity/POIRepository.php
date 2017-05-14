@@ -27,7 +27,7 @@ class POIRepository extends EntityRepository
 
         $query = $sql->getQuery();
 
-        return $query->getResult();
+        return $query->getOneOrNullResult();
     }
 
     public function findByRouteAndLatitudeAndLongitude($route, $latitude, $longitude)
