@@ -64,7 +64,7 @@ class User implements UserInterface, \Serializable
     /**
      * @var ArrayCollection<Route>
      * @ORM\OneToMany(targetEntity="DrutaBundle\Entity\Route", mappedBy="user")
-     * @JMS\Groups({"user", "route"})
+     * @JMS\Groups({"route"})
      */
     protected $route;
 

@@ -32,7 +32,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3" style="overflow-y: scroll; height:400px;">
+        <div class="col-md-3" style="overflow-y: scroll; height:445px;">
             {% for poi in pois %}
                 <!-- small box -->
                 <div class="small-box bg-aqua">
@@ -45,15 +45,17 @@
                     <div class="icon">
                         <i class="fa fa-bandcamp"></i>
                     </div>
-                    <div class="row small-box-footer text-center center-block">
-                        <a href="#" class="col-lg-6 small-box-footer text-navy editPOI">
-                            <div class="hidden">{{ poi.getId() }}</div>
-                            Editar <i class="fa fa-edit"></i>
-                        </a>
-                        <a href="#" class="col-lg-6 small-box-footer text-navy deletePOI">
-                            Borrar <i class="fa fa-eraser"></i>
-                        </a>
-                    </div>
+                    {% if own_route %}
+                        <div class="row small-box-footer text-center center-block">
+                            <a href="#" class="col-lg-6 small-box-footer text-navy editPOI">
+                                <div class="hidden">{{ poi.getId() }}</div>
+                                Editar <i class="fa fa-edit"></i>
+                            </a>
+                            <a href="#" class="col-lg-6 small-box-footer text-navy deletePOI">
+                                Borrar <i class="fa fa-eraser"></i>
+                            </a>
+                        </div>
+                    {% endif %}
                 </div>
             {% endfor %}
         </div>
